@@ -18,13 +18,19 @@ def calculate(arg):
 
       stack.append(res)
 
+      if (len(stack) > 1):
+        raise ValueError('Too many arguents on the stack')
+
   return stack[0]
 
 
 def main():
   while True:
-    res = calculate(input("rpn calc> "))
-    print(res)
+    try:
+      res = calculate(input("rpn calc> "))
+      print(res)
+    except ValueError:
+      pass
 
 if __name__ == "__main__":
   main()
