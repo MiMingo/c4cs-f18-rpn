@@ -7,10 +7,15 @@ def calculate(arg):
   for tok in tokens:
     try:
       stack.append(int(tok))
-    except ValueError as e:
-      a = stack.pop()
+    except ValueError:
       b = stack.pop()
-      res = a + b
+      a = stack.pop()
+      
+      if (tok == '+'):
+        res = a + b
+      elif (tok == '-'):
+        res = a - b
+
       stack.append(res)
 
   return stack[0]
