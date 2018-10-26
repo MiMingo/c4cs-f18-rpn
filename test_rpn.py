@@ -7,5 +7,9 @@ class TestBasics(unittest.TestCase):
     self.assertEqual(2, result)
 
   def test_sub(self):
-    result = rpn.calculate("3 1 -")
-    self.assertEqual(2, result)
+    result = rpn.calculate("4 3 -")
+    self.assertEqual(1, result)
+
+  def test_toomany(self):
+    with self.assertRaises(ValueError):
+      rpn.calculate('1 2 3 +')
