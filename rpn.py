@@ -1,36 +1,36 @@
 #!/usr/bin/env python3
 
-def calculate(arg):
-  stack = []
-  tokens = arg.split()
+import operator
 
-  for tok in tokens:
-    try:
-      stack.append(int(tok))
-    except ValueError:
-      b = stack.pop()
-      a = stack.pop()
-      
-      if (tok == '+'):
-        res = a + b
-      elif (tok == '-'):
-        res = a - b
 
-      stack.append(res)
+operators = {
+    '+': operator.add,
+    '-': operator.sub,
+    '*': operator.mul,
+    '/': operator.truediv,
+}
 
-      if (len(stack) > 1):
-        raise ValueError('Too many arguents on the stack')
-
-  return stack[0]
-
+def calculate(myarg):
+    stack = list()
+    for token in myarg.split():
+        try:
+            token = int(token)
+            stack.append(token)
+        except ValueError:
+            function = operators[token]
+            arg2 = stack.pop()
+            arg1 = stack.pop()
+            result = function(arg1, arg2)
+            stack.append(result)
+        print(stack)
+    if len(stack) != 1:
+        raise TypeError("Too many parameters")
+    return stack.pop()
 
 def main():
-  while True:
-    try:
-      res = calculate(input("rpn calc> "))
-      print(res)
-    except ValueError:
-      pass
+    while True:
+        result = calculate(input("rpn calc> "))
+        print("Result: ", result)
 
-if __name__ == "__main__":
-  main()
+if __name__ == '__main__':
+    main()
